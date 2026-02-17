@@ -1,5 +1,4 @@
 import java.time.Year;
-import java.util.Objects;
 
 public class Car {
   private final int year;
@@ -7,23 +6,31 @@ public class Car {
   private final String model;
 
   // Use current year as default
-  private static final int CURRENT_YEAR = Year.now().getValue();
+  private static final int MIN_YEAR = 1886;
 
   // Chained to master constructor
   public Car(String make, String model) {
-    this(CURRENT_YEAR, make, model);
+    this(Year.now().getValue(), make, model);
   }
 
   // Main constructor
   public Car(int year, String make, String model) {
     // Validate year
-    if (year < 1886) {
+    if (year < MIN_YEAR) {
       throw new IllegalArgumentException("Year cannot be before the invention of the car.");
     }
 
     this.year = year;
-    this.make = Objects.requireNonNull(make, "Make cannot be null.");
-    this.model = Objects.requireNonNull(model, "Model cannot be null.");
+    this.make = validate(make, "Make");
+    this.model = validate(model, "Model");
+  }
+
+  // Validate make and model arguments
+  private String validate(String value, String fieldName) {
+    if (value == null || value.isBlank()) {
+      throw new IllegalArgumentException(fieldName + " cannot be null or blank.");
+    }
+    return value.trim();
   }
 
   public int getYear() {
