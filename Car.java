@@ -34,21 +34,21 @@ public class Car {
   }
 
   public int getYear() {
-    return this.year;
+    return year;
   }
 
   public String getMake() {
-    return this.make;
+    return make;
   }
 
   public String getModel() {
-    return this.model;
+    return model;
   }
 
   // Override toString and return year, make, and model
   @Override
   public String toString() {
-    return String.format("%d %s %s", this.year, this.make, this.model);
+    return String.format("%d %s %s", year, make, model);
   }
 
   public static void main(String[] args) {
